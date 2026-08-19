@@ -1,0 +1,785 @@
+/* ============================================================================
+   DSH · Spotify Theme (dark + light)
+   ----------------------------------------------------------------------------
+   A global override stylesheet that restyles the DeepSeek Harness web client
+   in the visual language of Spotify. Two matching palettes share one structure
+   — near-black vs. paper-white surfaces, layered gray cards, white / charcoal
+   text, and the signature "Spotify green" accent (#1ed760 on dark, #1db954 on
+   light). It works by re-declaring the `--dsw-*` design tokens plus a handful
+   of component rules, all of which ride the existing theme system.
+
+   Install: linked from dist/index.html after the shell stylesheets so it wins
+   the cascade. Remove the <link> (or this file) to revert to stock styling.
+
+   The `!important` flags guarantee the palette wins over the shell's token
+   sheets and over any inline tokens the theme presenter may apply.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. Shared base — crisp text rendering + per-scheme canvas colour
+   ---------------------------------------------------------------------------- */
+html, body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body[data-ds-dark-theme] {
+  background-color: #121212 !important;
+}
+body:not([data-ds-dark-theme]) {
+  background-color: #ffffff !important;
+}
+
+/* ============================================================================
+   2. DARK THEME — near-black surfaces + bright green (#1ed760)
+   ============================================================================ */
+body[data-ds-dark-theme] {
+  /* --- static ramp: neutral → Spotify grays (for direct --dsw-static-* uses) */
+  --dsw-static-neutral-bluish-00:   #ffffff !important;
+  --dsw-static-neutral-bluish-50:   #f5f5f5 !important;
+  --dsw-static-neutral-bluish-60:   #f2f2f2 !important;
+  --dsw-static-neutral-bluish-75:   #d9d9d9 !important;
+  --dsw-static-neutral-bluish-100:  #c8c8c8 !important;
+  --dsw-static-neutral-bluish-150:  #b3b3b3 !important;
+  --dsw-static-neutral-bluish-200:  #a7a7a7 !important;
+  --dsw-static-neutral-bluish-300:  #8f8f8f !important;
+  --dsw-static-neutral-bluish-400:  #7f7f7f !important;
+  --dsw-static-neutral-bluish-500:  #6a6a6a !important;
+  --dsw-static-neutral-bluish-600:  #5a5a5a !important;
+  --dsw-static-neutral-bluish-700:  #404040 !important;
+  --dsw-static-neutral-bluish-750:  #333333 !important;
+  --dsw-static-neutral-bluish-800:  #2a2a2a !important;
+  --dsw-static-neutral-bluish-850:  #242424 !important;
+  --dsw-static-neutral-bluish-875:  #1f1f1f !important;
+  --dsw-static-neutral-bluish-900:  #181818 !important;
+  --dsw-static-neutral-bluish-950:  #121212 !important;
+  --dsw-static-neutral-bluish-1000: #000000 !important;
+
+  /* --- static ramp: DeepSeek brand blue → Spotify green */
+  --dsw-static-deepseek-50:   #e6f9ed !important;
+  --dsw-static-deepseek-100:  #c9f2d9 !important;
+  --dsw-static-deepseek-200:  #a1e8bd !important;
+  --dsw-static-deepseek-300:  #74dc9e !important;
+  --dsw-static-deepseek-400:  #3ed47f !important;
+  --dsw-static-deepseek-450:  #2bc96a !important;
+  --dsw-static-deepseek-500:  #1db954 !important;
+  --dsw-static-deepseek-600:  #1aa34a !important;
+  --dsw-static-deepseek-800:  #0e5c2e !important;
+  --dsw-static-deepseek-900:  #0a4020 !important;
+
+  /* --- static ramp: green → Spotify green */
+  --dsw-static-green-100: #c9f2d9 !important;
+  --dsw-static-green-400: #3ed47f !important;
+  --dsw-static-green-500: #1db954 !important;
+  --dsw-static-green-900: #0a4020 !important;
+
+  /* --- semantic surfaces & backgrounds */
+  --dsw-alias-bg-base:           #121212 !important;
+  --dsw-alias-bg-layer-1:        #181818 !important;
+  --dsw-alias-bg-layer-2:        #1f1f1f !important;
+  --dsw-alias-bg-layer-3:        #282828 !important;
+  --dsw-alias-bg-mask-1:         rgba(0, 0, 0, 0.5) !important;
+  --dsw-alias-bg-mask-2:         rgba(0, 0, 0, 0.2) !important;
+  --dsw-alias-bg-mask-3:         rgba(0, 0, 0, 0.6) !important;
+  --dsw-alias-bg-mask-photo:     rgba(0, 0, 0, 0.88) !important;
+  --dsw-alias-bg-mask-drop:      rgba(24, 24, 24, 0.7) !important;
+  --dsw-alias-bg-module-platform:#1f1f1f !important;
+  --dsw-alias-bg-multi-select:   #242424 !important;
+  --dsw-alias-bg-overlay:        #2a2a2a !important;
+  --dsw-alias-bg-skeleton:       rgba(255, 255, 255, 0.08) !important;
+
+  /* --- borders */
+  --dsw-alias-border-inverted2:       rgba(255, 255, 255, 0.1) !important;
+  --dsw-alias-border-inverted:        rgba(255, 255, 255, 0.07) !important;
+  --dsw-alias-border-l1:              rgba(255, 255, 255, 0.07) !important;
+  --dsw-alias-border-l2-darkmode-thin: rgba(255, 255, 255, 0.08) !important;
+  --dsw-alias-border-l2:              rgba(255, 255, 255, 0.1) !important;
+  --dsw-alias-border-l3:              rgba(255, 255, 255, 0.14) !important;
+  --dsw-alias-border-l4:              rgba(255, 255, 255, 0.2) !important;
+
+  /* --- brand / primary actions → Spotify green */
+  --dsw-alias-brand-primary-invert:               #000000 !important;
+  --dsw-alias-brand-primary:                      #1ed760 !important;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #1ed760 !important;
+  --dsw-alias-brand-text:                         #1ed760 !important;
+  --dsw-alias-button-primary-fill:                #1ed760 !important;
+  --dsw-alias-button-primary-hover:               #1fdf64 !important;
+  --dsw-alias-button-primary-dimmed:              #169c46 !important;
+  --dsw-alias-button-info-fill:                   #1db954 !important;
+  --dsw-alias-button-info-hover:                  #1ed760 !important;
+
+  /* --- secondary buttons / chrome */
+  --dsw-alias-button-contrast-fill:      #ffffff !important;
+  --dsw-alias-button-elevated-fill:      #242424 !important;
+  --dsw-alias-button-floating-fill:      #282828 !important;
+  --dsw-alias-button-floating-hover:     #333333 !important;
+  --dsw-alias-button-ghost-active-border:#5a5a5a !important;
+  --dsw-alias-button-ghost-active-fill:  #333333 !important;
+  --dsw-alias-button-ghost-active-hover: #282828 !important;
+  --dsw-alias-button-tool-bar-fill:            rgba(0, 0, 0, 0.4) !important;
+  --dsw-alias-button-tool-bar-fill-invisible:  rgba(0, 0, 0, 0.28) !important;
+  --dsw-alias-button-tool-bar-hover:           rgba(0, 0, 0, 0.5) !important;
+
+  /* --- interactive states */
+  --dsw-alias-interactive-bg-hover:        rgba(255, 255, 255, 0.1) !important;
+  --dsw-alias-interactive-bg-hover-solid:  #2a2a2a !important;
+  --dsw-alias-interactive-bg-hover-accent: rgba(30, 215, 96, 0.16) !important;
+  --dsw-alias-interactive-bg-hover-danger: rgba(241, 94, 108, 0.16) !important;
+  --dsw-alias-interactive-bg-active:       rgba(255, 255, 255, 0.16) !important;
+
+  /* --- text labels */
+  --dsw-alias-label-primary:            #ffffff !important;
+  --dsw-alias-label-primary-dimmed:     #d9d9d9 !important;
+  --dsw-alias-label-primary-foreground: #000000 !important;
+  --dsw-alias-label-primary-inverted:   #000000 !important;
+  --dsw-alias-label-primary-bluish:     #1ed760 !important;
+  --dsw-alias-label-secondary:          #b3b3b3 !important;
+  --dsw-alias-label-tertiary:           #a7a7a7 !important;
+  --dsw-alias-label-caption:            #7f7f7f !important;
+  --dsw-alias-label-dimmed:             #5f5f5f !important;
+
+  /* --- markdown / code */
+  --dsw-alias-markdown-citation:                 #2a2a2a !important;
+  --dsw-alias-markdown-code-block:               #181818 !important;
+  --dsw-alias-markdown-code-block-banner:        #1f1f1f !important;
+  --dsw-alias-markdown-code-segment-selected:    #282828 !important;
+  --dsw-alias-markdown-code-segment-unselected:  #181818 !important;
+  --dsw-alias-markdown-inline-code:              #242424 !important;
+  --dsw-alias-markdown-placeholder:              #242424 !important;
+  --dsw-alias-markdown-tag:                      #242424 !important;
+
+  /* --- scrollbars */
+  --dsw-alias-scrollbar-bg-l1:      #333333 !important;
+  --dsw-alias-scrollbar-bg-l2:      #2a2a2a !important;
+  --dsw-alias-scrollbar-hover-l1:   #4d4d4d !important;
+  --dsw-alias-scrollbar-hover-l2:   #404040 !important;
+
+  /* --- semantic state colors */
+  --dsw-alias-state-business-primary:   #1ed760 !important;
+  --dsw-alias-state-business-tertiary:  #0a4020 !important;
+  --dsw-alias-state-success-primary:    #1ed760 !important;
+  --dsw-alias-state-success-secondary:  #1db954 !important;
+  --dsw-alias-state-success-tertiary:   #0a4020 !important;
+  --dsw-alias-state-error-primary:      #f15e6c !important;
+  --dsw-alias-state-error-secondary:    #e91429 !important;
+  --dsw-alias-state-warn-label:         #ffa42b !important;
+  --dsw-alias-state-warn-primary:       #ffa42b !important;
+  --dsw-alias-state-warn-secondary:     #ffb84d !important;
+  --dsw-alias-state-warn-tertiary:      #33260d !important;
+
+  /* --- overlay chrome */
+  --dsw-alias-toast-bg:   #282828 !important;
+  --dsw-alias-tooltip-bg: #333333 !important;
+
+  /* --- component-specific surfaces */
+  --dsw-specific-sidebar-fill:                 #000000 !important;
+  --dsw-specific-sidebar-nav-item-hover:       #1a1a1a !important;
+  --dsw-specific-sidebar-nav-item-active:      #282828 !important;
+  --dsw-specific-sidebar-nav-item-active-accent:#1ed760 !important;
+  --dsw-specific-input-major:                  #242424 !important;
+  --dsw-specific-login-input:                  #181818 !important;
+  --dsw-specific-menu:                         #282828 !important;
+  --dsw-specific-selector:                     #242424 !important;
+  --dsw-specific-bubble:                       #181818 !important;
+  --dsw-specific-bubble-highlight:             #282828 !important;
+  --dsw-specific-tip:                          #1f1f1f !important;
+
+  /* --- shadows (deeper, Spotify-like) */
+  --dsw-shadow-lv1:      0 2px 6px 0 rgba(0, 0, 0, 0.4) !important;
+  --dsw-shadow-lv1-blur: 0 4px 14px 0 rgba(0, 0, 0, 0.35) !important;
+  --dsw-shadow-lv2:      0 4px 16px 0 rgba(0, 0, 0, 0.4), 0 2px 8px 0 rgba(0, 0, 0, 0.3) !important;
+  --dsw-shadow-lv3:      0 0 1px 0 rgba(0, 0, 0, 0.6), 0 12px 36px 0 rgba(0, 0, 0, 0.5) !important;
+  --dsw-shadow-lv4:      0 16px 48px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ============================================================================
+   3. LIGHT THEME — paper-white surfaces + brand green (#1db954)
+   (Same token set and same green accent family as the dark theme.)
+   ============================================================================ */
+body:not([data-ds-dark-theme]) {
+  /* --- static ramp: neutral → light grays (for direct --dsw-static-* uses) */
+  --dsw-static-neutral-bluish-00:   #ffffff !important;
+  --dsw-static-neutral-bluish-50:   #fafafa !important;
+  --dsw-static-neutral-bluish-60:   #f5f5f5 !important;
+  --dsw-static-neutral-bluish-75:   #f0f0f0 !important;
+  --dsw-static-neutral-bluish-100:  #e6e6e6 !important;
+  --dsw-static-neutral-bluish-150:  #dcdcdc !important;
+  --dsw-static-neutral-bluish-200:  #d0d0d0 !important;
+  --dsw-static-neutral-bluish-300:  #b8b8b8 !important;
+  --dsw-static-neutral-bluish-400:  #a0a0a0 !important;
+  --dsw-static-neutral-bluish-500:  #8a8a8a !important;
+  --dsw-static-neutral-bluish-600:  #737373 !important;
+  --dsw-static-neutral-bluish-700:  #5c5c5c !important;
+  --dsw-static-neutral-bluish-750:  #4d4d4d !important;
+  --dsw-static-neutral-bluish-800:  #404040 !important;
+  --dsw-static-neutral-bluish-850:  #333333 !important;
+  --dsw-static-neutral-bluish-875:  #292929 !important;
+  --dsw-static-neutral-bluish-900:  #1f1f1f !important;
+  --dsw-static-neutral-bluish-950:  #181818 !important;
+  --dsw-static-neutral-bluish-1000: #121212 !important;
+
+  /* --- static ramp: DeepSeek brand blue → Spotify green (same greens) */
+  --dsw-static-deepseek-50:   #e6f9ed !important;
+  --dsw-static-deepseek-100:  #c9f2d9 !important;
+  --dsw-static-deepseek-200:  #a1e8bd !important;
+  --dsw-static-deepseek-300:  #74dc9e !important;
+  --dsw-static-deepseek-400:  #3ed47f !important;
+  --dsw-static-deepseek-450:  #2bc96a !important;
+  --dsw-static-deepseek-500:  #1db954 !important;
+  --dsw-static-deepseek-600:  #1aa34a !important;
+  --dsw-static-deepseek-800:  #0e5c2e !important;
+  --dsw-static-deepseek-900:  #0a4020 !important;
+
+  /* --- static ramp: green → Spotify green */
+  --dsw-static-green-100: #c9f2d9 !important;
+  --dsw-static-green-400: #3ed47f !important;
+  --dsw-static-green-500: #1db954 !important;
+  --dsw-static-green-900: #0a4020 !important;
+
+  /* --- semantic surfaces & backgrounds */
+  --dsw-alias-bg-base:           #ffffff !important;
+  --dsw-alias-bg-layer-1:        #ffffff !important;
+  --dsw-alias-bg-layer-2:        #f6f6f6 !important;
+  --dsw-alias-bg-layer-3:        #efefef !important;
+  --dsw-alias-bg-mask-1:         rgba(0, 0, 0, 0.32) !important;
+  --dsw-alias-bg-mask-2:         rgba(0, 0, 0, 0.12) !important;
+  --dsw-alias-bg-mask-3:         rgba(0, 0, 0, 0.44) !important;
+  --dsw-alias-bg-mask-photo:     rgba(0, 0, 0, 0.72) !important;
+  --dsw-alias-bg-mask-drop:      rgba(255, 255, 255, 0.7) !important;
+  --dsw-alias-bg-module-platform:#f6f6f6 !important;
+  --dsw-alias-bg-multi-select:   #f0f0f0 !important;
+  --dsw-alias-bg-overlay:        #f6f6f6 !important;
+  --dsw-alias-bg-skeleton:       rgba(0, 0, 0, 0.06) !important;
+
+  /* --- borders */
+  --dsw-alias-border-inverted2:       rgba(0, 0, 0, 0.08) !important;
+  --dsw-alias-border-inverted:        rgba(0, 0, 0, 0.05) !important;
+  --dsw-alias-border-l1:              rgba(0, 0, 0, 0.07) !important;
+  --dsw-alias-border-l2-darkmode-thin: rgba(0, 0, 0, 0.08) !important;
+  --dsw-alias-border-l2:              rgba(0, 0, 0, 0.1) !important;
+  --dsw-alias-border-l3:              rgba(0, 0, 0, 0.14) !important;
+  --dsw-alias-border-l4:              rgba(0, 0, 0, 0.2) !important;
+
+  /* --- brand / primary actions → Spotify green */
+  --dsw-alias-brand-primary-invert:               #ffffff !important;
+  --dsw-alias-brand-primary:                      #1db954 !important;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #1db954 !important;
+  --dsw-alias-brand-text:                         #1db954 !important;
+  --dsw-alias-button-primary-fill:                #1db954 !important;
+  --dsw-alias-button-primary-hover:               #1ed760 !important;
+  --dsw-alias-button-primary-dimmed:              #d9f5e3 !important;
+  --dsw-alias-button-info-fill:                   #1db954 !important;
+  --dsw-alias-button-info-hover:                  #1ed760 !important;
+
+  /* --- secondary buttons / chrome */
+  --dsw-alias-button-contrast-fill:      #121212 !important;
+  --dsw-alias-button-elevated-fill:      #ffffff !important;
+  --dsw-alias-button-floating-fill:      #ffffff !important;
+  --dsw-alias-button-floating-hover:     #f6f6f6 !important;
+  --dsw-alias-button-ghost-active-border:#a0a0a0 !important;
+  --dsw-alias-button-ghost-active-fill:  #efefef !important;
+  --dsw-alias-button-ghost-active-hover: #f6f6f6 !important;
+  --dsw-alias-button-tool-bar-fill:            rgba(255, 255, 255, 0.4) !important;
+  --dsw-alias-button-tool-bar-fill-invisible:  rgba(255, 255, 255, 0.28) !important;
+  --dsw-alias-button-tool-bar-hover:           rgba(255, 255, 255, 0.5) !important;
+
+  /* --- interactive states */
+  --dsw-alias-interactive-bg-hover:        rgba(0, 0, 0, 0.06) !important;
+  --dsw-alias-interactive-bg-hover-solid:  #f0f0f0 !important;
+  --dsw-alias-interactive-bg-hover-accent: rgba(29, 185, 84, 0.12) !important;
+  --dsw-alias-interactive-bg-hover-danger: rgba(233, 20, 41, 0.08) !important;
+  --dsw-alias-interactive-bg-active:       rgba(0, 0, 0, 0.1) !important;
+
+  /* --- text labels */
+  --dsw-alias-label-primary:            #121212 !important;
+  --dsw-alias-label-primary-dimmed:     #292929 !important;
+  --dsw-alias-label-primary-foreground: #ffffff !important;
+  --dsw-alias-label-primary-inverted:   #ffffff !important;
+  --dsw-alias-label-primary-bluish:     #1db954 !important;
+  --dsw-alias-label-secondary:          #4d4d4d !important;
+  --dsw-alias-label-tertiary:           #6a6a6a !important;
+  --dsw-alias-label-caption:            #8f8f8f !important;
+  --dsw-alias-label-dimmed:             #b3b3b3 !important;
+
+  /* --- markdown / code */
+  --dsw-alias-markdown-citation:                 #e6e6e6 !important;
+  --dsw-alias-markdown-code-block:               #f6f6f6 !important;
+  --dsw-alias-markdown-code-block-banner:        #f0f0f0 !important;
+  --dsw-alias-markdown-code-segment-selected:    #e6e6e6 !important;
+  --dsw-alias-markdown-code-segment-unselected:  #f6f6f6 !important;
+  --dsw-alias-markdown-inline-code:              #f0f0f0 !important;
+  --dsw-alias-markdown-placeholder:              #f0f0f0 !important;
+  --dsw-alias-markdown-tag:                      #f0f0f0 !important;
+
+  /* --- scrollbars */
+  --dsw-alias-scrollbar-bg-l1:      #d0d0d0 !important;
+  --dsw-alias-scrollbar-bg-l2:      #c0c0c0 !important;
+  --dsw-alias-scrollbar-hover-l1:   #b0b0b0 !important;
+  --dsw-alias-scrollbar-hover-l2:   #a0a0a0 !important;
+
+  /* --- semantic state colors */
+  --dsw-alias-state-business-primary:   #1db954 !important;
+  --dsw-alias-state-business-tertiary:  #d9f5e3 !important;
+  --dsw-alias-state-success-primary:    #1db954 !important;
+  --dsw-alias-state-success-secondary:  #1ed760 !important;
+  --dsw-alias-state-success-tertiary:   #d9f5e3 !important;
+  --dsw-alias-state-error-primary:      #e91429 !important;
+  --dsw-alias-state-error-secondary:    #f15e6c !important;
+  --dsw-alias-state-warn-label:         #b26a00 !important;
+  --dsw-alias-state-warn-primary:       #e58900 !important;
+  --dsw-alias-state-warn-secondary:     #ffa42b !important;
+  --dsw-alias-state-warn-tertiary:      #fff3e0 !important;
+
+  /* --- overlay chrome (dark tooltips/toasts for contrast, matching dark theme) */
+  --dsw-alias-toast-bg:   #1f1f1f !important;
+  --dsw-alias-tooltip-bg: #1f1f1f !important;
+
+  /* --- component-specific surfaces (light sidebar, same green accents) */
+  --dsw-specific-sidebar-fill:                 #f6f6f6 !important;
+  --dsw-specific-sidebar-nav-item-hover:       #eaeaea !important;
+  --dsw-specific-sidebar-nav-item-active:      #e6e6e6 !important;
+  --dsw-specific-sidebar-nav-item-active-accent:#1db954 !important;
+  --dsw-specific-input-major:                  #ffffff !important;
+  --dsw-specific-login-input:                  #f6f6f6 !important;
+  --dsw-specific-menu:                         #ffffff !important;
+  --dsw-specific-selector:                     #f0f0f0 !important;
+  --dsw-specific-bubble:                       #f6f6f6 !important;
+  --dsw-specific-bubble-highlight:             #efefef !important;
+  --dsw-specific-tip:                          #f6f6f6 !important;
+
+  /* --- shadows (soft, Spotify-light) */
+  --dsw-shadow-lv1:      0 2px 6px 0 rgba(0, 0, 0, 0.08) !important;
+  --dsw-shadow-lv1-blur: 0 4px 14px 0 rgba(0, 0, 0, 0.06) !important;
+  --dsw-shadow-lv2:      0 4px 16px 0 rgba(0, 0, 0, 0.08), 0 2px 8px 0 rgba(0, 0, 0, 0.06) !important;
+  --dsw-shadow-lv3:      0 0 1px 0 rgba(0, 0, 0, 0.2), 0 12px 36px 0 rgba(0, 0, 0, 0.12) !important;
+  --dsw-shadow-lv4:      0 16px 48px 0 rgba(0, 0, 0, 0.16) !important;
+}
+
+/* ============================================================================
+   4. Per-scheme component polish
+   ============================================================================ */
+
+/* Hero welcome glow → Spotify green (both schemes, via the accent token). */
+[class*="heroGlow"] ellipse {
+  fill: var(--dsw-alias-state-business-primary) !important;
+  fill-opacity: 0.12 !important;
+}
+
+/* Composer send button: black glyph on the green pill (Spotify play-button look). */
+button.uV2eYG_primary {
+  color: #000000 !important;
+}
+
+/* The inline text "chip" that used a hardcoded DeepSeek-blue tint → green. */
+.uV2eYG_chip {
+  background: color-mix(in srgb, var(--dsw-alias-state-business-primary) 18%, transparent) !important;
+}
+
+/* Links / hardcoded accent text → green. */
+a,
+[class*="textRef"] {
+  color: var(--dsw-alias-state-business-primary) !important;
+}
+
+/* Slim, subtle scrollbars everywhere (WebKit), tuned per scheme. */
+body[data-ds-dark-theme] ::-webkit-scrollbar,
+body:not([data-ds-dark-theme]) ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+body[data-ds-dark-theme] ::-webkit-scrollbar-thumb {
+  background: #333333;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 8px;
+}
+body[data-ds-dark-theme] ::-webkit-scrollbar-thumb:hover {
+  background: #4d4d4d;
+  background-clip: content-box;
+}
+body:not([data-ds-dark-theme]) ::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 8px;
+}
+body:not([data-ds-dark-theme]) ::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+  background-clip: content-box;
+}
+body[data-ds-dark-theme] ::-webkit-scrollbar-track,
+body[data-ds-dark-theme] ::-webkit-scrollbar-corner,
+body:not([data-ds-dark-theme]) ::-webkit-scrollbar-track,
+body:not([data-ds-dark-theme]) ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ============================================================================
+   5. Shared component polish — theme-aware via the design tokens
+   ============================================================================ */
+
+/* Conversation header breadcrumbs: demote the ancestor (workspace) crumb to a
+   small gray italic, and elevate the current task name into the main title.
+   The current crumb carries BOTH `crumb` and `crumbCurrent` classes, so the
+   demotion must be scoped to non-current crumbs only. */
+.wSkVaW_crumb:not(.wSkVaW_crumbCurrent) {
+  font-size: 13px !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  color: var(--dsw-alias-label-caption) !important;
+}
+.wSkVaW_crumbCurrent {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  line-height: 24px !important;
+  font-style: normal !important;
+  color: var(--dsw-alias-label-primary) !important;
+}
+
+/* Sidebar panel → floating rounded rectangle (Spotify card silhouette). */
+.pI_x6G_sidebarCol {
+  border-radius: 16px !important;
+  margin: 10px !important;
+  border-right: none !important;
+  box-shadow: 0 0 0 1px var(--dsw-alias-border-l2) !important;
+}
+/* Collapsed rail: keep the SAME 10px gap on all four sides as the expanded
+   card. The track is widened to 68px (layout patch) so the rail is 48px; the
+   icon buttons are shrunk to 28px and sit in 10px horizontal padding. */
+.pI_x6G_frame[data-sidebar-collapsed] .pI_x6G_sidebarCol {
+  margin: 10px !important;
+}
+.pI_x6G_frame[data-sidebar-collapsed] .hHd-Xa_root {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.pI_x6G_frame[data-sidebar-collapsed] .hHd-Xa_root button {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* Let the inner root fill the now-rounded, inset column instead of its fixed
+   280px inline width. (Its text colour already follows --dsw-alias-label-primary.) */
+.hHd-Xa_root {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 5a. "新建会话 / New Session" → solid green pill (the rail's primary action). */
+.hHd-Xa_newSession {
+  background: var(--dsw-alias-button-primary-fill) !important;
+  border-color: var(--dsw-alias-button-primary-fill) !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px 0 color-mix(in srgb, var(--dsw-alias-state-business-primary) 28%, transparent) !important;
+}
+.hHd-Xa_newSession:hover {
+  background: var(--dsw-alias-button-primary-hover) !important;
+  border-color: var(--dsw-alias-button-primary-hover) !important;
+  color: #000000 !important;
+}
+/* Collapsed rail: keep it icon-only — green glyph, transparent chip. */
+.hHd-Xa_collapsed .hHd-Xa_newSession {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--dsw-alias-state-business-primary) !important;
+  box-shadow: none !important;
+}
+.hHd-Xa_collapsed .hHd-Xa_newSession:hover {
+  background: color-mix(in srgb, var(--dsw-alias-state-business-primary) 14%, transparent) !important;
+  color: var(--dsw-alias-state-business-primary) !important;
+}
+
+/* 5b. Section headers ("工作区 / 会话") → green labels with a leading dot. */
+.qDHVXG_sectionLabel {
+  color: var(--dsw-alias-state-business-primary) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+}
+.qDHVXG_sectionLabel::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--dsw-alias-state-business-primary);
+  vertical-align: middle;
+}
+
+/* 5c. Workspace rows → green folder icon (active and idle). */
+.YDXeBa_folder,
+.YDXeBa_folderActive {
+  color: var(--dsw-alias-state-business-primary) !important;
+}
+
+/* 5d. Active session row → green bold title, neutral bg, no rail/bracket. */
+.YDXeBa_sessionRow.YDXeBa_selected {
+  background: var(--dsw-alias-bg-layer-3) !important;
+  color: var(--dsw-alias-label-primary) !important;
+}
+.YDXeBa_sessionRow.YDXeBa_selected .YDXeBa_title {
+  color: var(--dsw-alias-state-business-primary) !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  line-height: 22px !important;
+}
+.YDXeBa_sessionRow.YDXeBa_selected .YDXeBa_slot {
+  color: var(--dsw-alias-state-business-primary) !important;
+}
+/* Keep idle hover subtle so the green selected state stays distinct. */
+.YDXeBa_sessionRow:hover:not(.YDXeBa_selected) {
+  background: var(--dsw-alias-interactive-bg-hover) !important;
+}
+
+/* 5e. Footer (settings/actions) → green divider + green hover. */
+.hHd-Xa_footArea {
+  border-top: 1px solid color-mix(in srgb, var(--dsw-alias-state-business-primary) 30%, transparent) !important;
+  padding-top: 8px !important;
+}
+.hHd-Xa_footArea button:hover {
+  color: var(--dsw-alias-state-business-primary) !important;
+  background: color-mix(in srgb, var(--dsw-alias-state-business-primary) 12%, transparent) !important;
+}
+
+/* ============================================================================
+   6. Extra Spotify signatures & polish
+   ============================================================================ */
+
+/* 6a. Running session → "now playing" breathing green indicator.
+   The `ongoing` state dot is an SVG ring; recolour its cells to the accent
+   green and pulse the whole ring in and out. */
+[data-state="ongoing"] {
+  color: var(--dsw-alias-state-business-primary) !important;
+  animation: spotify-nowplaying 1.6s ease-in-out infinite !important;
+}
+@keyframes spotify-nowplaying {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* 6b. Composer: diffuse green halo (漫反射光晕) when the input is focused.
+   Three stacked shadows — a crisp 1px edge, a soft 16px bloom, and a wide 44px
+   halo — read as a gentle glow instead of a hard ring. */
+.uV2eYG_card:focus-within {
+  border-color: var(--dsw-alias-state-business-primary) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--dsw-alias-state-business-primary) 50%, transparent),
+    0 0 16px 0 color-mix(in srgb, var(--dsw-alias-state-business-primary) 32%, transparent),
+    0 0 44px 8px color-mix(in srgb, var(--dsw-alias-state-business-primary) 18%, transparent) !important;
+}
+
+/* 6c. User bubble → subtle green tint so the user's voice reads apart from
+   the neutral assistant content. */
+.gdEzaW_userRow .gdEzaW_bubble {
+  background: color-mix(in srgb, var(--dsw-alias-state-business-primary) 12%, var(--dsw-specific-bubble)) !important;
+}
+
+/* 6d. Brand logo → green on hover + a small green "accent" dot after the mark. */
+.hHd-Xa_brand:hover {
+  color: var(--dsw-alias-state-business-primary) !important;
+}
+.hHd-Xa_brand::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: var(--dsw-alias-state-business-primary);
+  flex: none;
+}
+
+/* 6e. Motion — smooth, snappy hover/focus transitions on the main surfaces. */
+.YDXeBa_sessionRow,
+.YDXeBa_projectRow,
+.hHd-Xa_newSession,
+.hHd-Xa_iconButton,
+.wSkVaW_crumb,
+.wSkVaW_tab,
+.uV2eYG_card {
+  transition: background-color 0.15s var(--ds-ease-in-out),
+              color 0.15s var(--ds-ease-in-out),
+              border-color 0.15s var(--ds-ease-in-out),
+              box-shadow 0.15s var(--ds-ease-in-out) !important;
+}
+.wSkVaW_tab::after {
+  transition: background-color 0.15s var(--ds-ease-in-out) !important;
+}
+
+/* 6f. Accessibility — green focus ring for keyboard navigation. */
+:focus-visible {
+  outline: 2px solid var(--dsw-alias-state-business-primary) !important;
+  outline-offset: 2px !important;
+}
+/* The composer's transparent textarea gets its focus cue from the card's
+   :focus-within ring above, so suppress its own rectangle outline. */
+.uV2eYG_input:focus-visible {
+  outline: none !important;
+}
+
+/* ============================================================================
+   7. Sidebar stats card — Spotify session-stats widget
+   ============================================================================ */
+
+/* Container: a real rounded card instead of floating text. */
+.dsh-stats {
+  margin: 4px 2px 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--dsw-alias-bg-layer-1);
+  border: 1px solid var(--dsw-alias-border-l1);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--dsw-alias-label-secondary);
+  flex: none;
+}
+/* Collapsed rail renders an empty card — hide it. */
+.dsh-stats:empty {
+  display: none;
+}
+
+/* Metric rows with a leading dot. */
+.dsh-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dsh-stat::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dsw-alias-label-caption);
+  flex: none;
+}
+
+/* Primary row ("turns · steps") — larger, brighter, green dot. */
+.dsh-stat-primary {
+  color: var(--dsw-alias-label-primary);
+  font-weight: 600;
+  font-size: 13px;
+}
+.dsh-stat-primary::before {
+  background: var(--dsw-alias-state-business-primary);
+}
+
+/* Cache-hit row — label + green % + progress bar. */
+.dsh-cache {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  margin-top: 1px;
+}
+.dsh-cache-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dsh-cache-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dsw-alias-state-business-primary);
+  flex: none;
+}
+.dsh-cache-label strong {
+  color: var(--dsw-alias-state-business-primary);
+  font-weight: 600;
+}
+.dsh-cache-bar {
+  height: 4px;
+  margin-left: 14px;
+  border-radius: 999px;
+  background: var(--dsw-alias-interactive-bg-hover);
+  overflow: hidden;
+}
+.dsh-cache-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--dsw-alias-state-business-primary);
+  transition: width 0.3s var(--ds-ease-in-out);
+}
+
+/* ============================================================================
+   8. Hero-screen cleanup + "DeepSeek" page watermark
+   ============================================================================ */
+
+/* Remove the logo + tagline (and its now-orphaned "预览版" badge) above the
+   composer on the new-session hero screen, leaving just the pickers. */
+.pXSMma_headline {
+  display: none !important;
+}
+
+/* Large, faint "Harness" watermark behind the conversation content. The root
+   becomes a stacking context so the watermark (z-index -1) sits above the
+   opaque background but beneath all content. */
+.wSkVaW_root {
+  position: relative !important;
+  z-index: 0 !important;
+}
+.wSkVaW_root::before {
+  content: "Harness";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 27vh;
+  font-size: clamp(110px, 14vw, 200px);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Position is shared across phases: the mark's lower third slides behind the
+   input box on the new-session screen. Only the colour differs per phase. */
+
+/* Colours: dim by default (task conversation) so it never fights the text,
+   and brighter on the hero screen where the canvas is empty. */
+body[data-ds-dark-theme] .wSkVaW_root::before {
+  color: rgba(255, 255, 255, 0.05);
+}
+body[data-ds-dark-theme] .wSkVaW_root[data-phase="hero"]::before {
+  color: rgba(255, 255, 255, 0.15);
+}
+body:not([data-ds-dark-theme]) .wSkVaW_root::before {
+  color: rgba(0, 0, 0, 0.04);
+}
+body:not([data-ds-dark-theme]) .wSkVaW_root[data-phase="hero"]::before {
+  color: rgba(0, 0, 0, 0.11);
+}
+
+/* ============================================================================
+   9. View transition — fade + rise on every conversation remount
+   ----------------------------------------------------------------------------
+   The conversation root remounts on every session switch and new-session, so a
+   single keyframe animation replays for both. Keep it short and gentle.
+   ============================================================================ */
+.wSkVaW_root {
+  animation: spotify-view-in 0.3s var(--ds-ease-in-out);
+}
+@keyframes spotify-view-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wSkVaW_root {
+    animation: none;
+  }
+}
