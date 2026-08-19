@@ -16,6 +16,10 @@ A Spotify-inspired restyle for the [DeepSeek Harness](https://github.com/deepsee
 
 ## Features
 
+**[English](#features-en) · [中文](#features-zh)**
+
+### Features (EN)
+
 **Theming**
 - Dark + light palettes sharing one structure (Spotify green accents in both)
 - Full `--dsw-*` design-token override, so the palette flows through every component
@@ -37,6 +41,32 @@ A Spotify-inspired restyle for the [DeepSeek Harness](https://github.com/deepsee
 **Polish & accessibility**
 - Smooth hover/focus transitions, `:focus-visible` green outline
 - Respects `prefers-reduced-motion`
+
+---
+
+### 功能特性（中文）
+
+**主题**
+- 深色 + 浅色双配色共享同一结构（均以 Spotify 绿为点缀）
+- 完整覆写 `--dsw-*` 设计令牌，配色自动贯穿所有组件
+
+**侧边栏**
+- 折叠时浮起的圆角面板，四周留白对称
+- 绿色"新建会话"胶囊按钮、带圆点的绿色分区标题、绿色文件夹图标
+- 当前会话以加粗绿色高亮
+- 运行中的会话显示"正在播放"风格的呼吸绿色圆点
+- 重新设计的会话统计卡，带缓存命中率进度条
+
+**主区域**
+- 任务标题提升为真正的标题样式，工作区面包屑降级
+- 输入框获得焦点时呈现绿色弥散光晕
+- 用户气泡以绿色色调区分于助手内容
+- 对话区域后方大面积斜体"Harness"水印
+- 每次切换会话 / 新建会话时淡入上浮过渡动画
+
+**细节与无障碍**
+- 平滑的 hover/focus 过渡动画，`:focus-visible` 绿色描边
+- 遵循 `prefers-reduced-motion` 偏好设置
 
 ## Install
 
